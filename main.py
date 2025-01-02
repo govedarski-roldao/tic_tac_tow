@@ -11,13 +11,16 @@ class GameBoard:
             'c1': '   ', 'c2': '   ', 'c3': '   ',
         }
 
+
+
     def bet(self, player):
-        player_column = input("Player One, which is the column? A, B, C?")
+        player_column = input(f"Player {player}, which is the column? A, B, C?")
         player_line = input("And what is the line?1, 2 or 3?")
         play_accepted = self.verify_choice(player_column, player_line)
         if play_accepted:
             self.place_play(player, player_column, player_line)
             return False
+            self.print_board()
         else:
             return True
 
@@ -34,6 +37,7 @@ class GameBoard:
             return True
 
     def print_board(self):
+        os.system('cls')
         print("    A  B   C")
         print(f"1 {self.board['a1']}|{self.board['a2']}|{self.board['a3']}")
         print("------------")
@@ -82,18 +86,17 @@ check = {
     2: 1
 }
 game = True
-
 game_board = GameBoard()
 position = 1
 while game:
     player_turn = True
     game_board.print_board()
     while player_turn:
-        player = game_board.bet(position)
+        player_turn = game_board.bet(position)
     game_board.print_board()
     verify_game = game_board.verify_game()
     if verify_game[0]:
-        print(verify_game[2])
+        print(verify_game[1])
         game = False
 
     position = check[position]
